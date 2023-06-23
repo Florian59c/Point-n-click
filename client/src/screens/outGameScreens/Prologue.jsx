@@ -3,7 +3,7 @@ import './css/Prologue.css';
 function Prologue() {
     return (
       <div>
-        <p>test</p>
+        <p>Prologue</p>
       </div>
     );
   }
