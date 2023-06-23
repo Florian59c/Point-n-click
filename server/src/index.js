@@ -3,6 +3,7 @@ const express = require('express');
 const User = require('./entity/user');
 // on appel le controller users
 const usersController = require('./controller/users');
+const cors = require('cors');
 
 const datasource = require('./db');
 const app = express();
@@ -10,6 +11,8 @@ const app = express();
 // permet d'acceder au donnees envoyer par le client dans le corp de la requete sur le gestionnaire de routes
 // sans ça, req.body sera forcement undefined
 app.use(express.json());
+// utilisation de cors pour eviter les problèmes de liaison avec le front lié aux navigateurs
+app.use(cors());
 
 app.get('/hello', (req, res) => {
     console.log('new request');
@@ -25,7 +28,7 @@ app.delete('/users/:id', usersController.deleteOne);
 async function start() {
     await datasource.initialize();
     // le port sur lequel on va écouter
-    app.listen(3000, () => {
+    app.listen(4000, () => {
         console.log('le serveur est prêt');
     });
 }
