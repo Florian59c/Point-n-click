@@ -1,11 +1,10 @@
 // cherche le code correspondant au package express
-const express = require('express');
-const User = require('./entity/user');
+import express from 'express';
 // on appel le controller users
-const usersController = require('./controller/users');
-const cors = require('cors');
+import usersController from './controller/users';
+import cors from 'cors';
 
-const datasource = require('./db');
+import datasource from './db';
 const app = express();
 
 // permet d'acceder au donnees envoyer par le client dans le corp de la requete sur le gestionnaire de routes
@@ -25,7 +24,7 @@ app.delete('/users/:id', usersController.deleteOne);
 // app.get('/users', usersController.getPseudoStartWithF);
 
 // attente que la bdd soit initialiser avent que le serveur commence à écouter sur un port
-async function start() {
+async function start(): Promise<void> {
     await datasource.initialize();
     // le port sur lequel on va écouter
     app.listen(4000, () => {
@@ -33,4 +32,4 @@ async function start() {
     });
 }
 
-start();
+start().catch(console.error);
