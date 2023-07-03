@@ -3,8 +3,39 @@ import express from 'express';
 // on appel le controller users
 import usersController from './controller/users';
 import cors from 'cors';
-
 import datasource from './db';
+import { ApolloServer, gql } from 'apollo-server';
+import User from './entity/User';
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+
+// https://www.apollographql.com/docs/apollo-server/v3/getting-started/
+
+const typeDefs = gql`
+  type User {
+    id: Int
+    pseudo: String
+  }
+  type Query {
+    getUsers: [User]
+  }
+`;
+
+const resolvers = {
+    Query: {
+        getUsers: async () => {
+            const getUser = await datasource.getRepository(User).find();
+            return getUser;
+        },
+    },
+};
+
+
+
+
+
+
+
+
 const app = express();
 
 // permet d'acceder au donnees envoyer par le client dans le corp de la requete sur le gestionnaire de routes
@@ -26,8 +57,28 @@ app.delete('/users/:id', usersController.deleteOne);
 // attente que la bdd soit initialiser avent que le serveur commence à écouter sur un port
 async function start(): Promise<void> {
     await datasource.initialize();
+
+
+
+    const server = new ApolloServer({
+        typeDefs,
+        resolvers,
+        csrfPrevention: true,
+        cache: 'bounded',
+        plugins: [
+            ApolloServerPluginLandingPageLocalDefault({ embed: true }),
+        ],
+    });
+
+    await server.listen().then(({ url }) => {
+        console.log(`🚀  Server ready at ${url}`);
+    });
+
+
+
+
     // le port sur lequel on va écouter
-    app.listen(4000, () => {
+    app.listen(4001, () => {
         console.log('le serveur est prêt');
     });
 }
