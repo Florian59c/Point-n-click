@@ -1,5 +1,6 @@
-const db = require('../db');
-const user = require('../entity/user');
+import db from '../db';
+import User from '../entity/User';
+import iController from '../types/Icontroller';
 
 /** recuperation depuis le client
  * req.body recupere se qui se trouve dans le corp de la requete
@@ -7,7 +8,7 @@ const user = require('../entity/user');
  * req.query pour recupere des filtres (/users?pseudoStartWith=F)
  */
 
-module.exports = {
+const usersController: iController = {
     // version avec .then
     /**
     create: (req, res) => {
@@ -23,15 +24,15 @@ module.exports = {
     create: async (req, res) => {
         try {
             // validation que l'utilisateur n'existe pas
-            if (!req.body.pseudo) {
+            if (req.body.pseudo === null || typeof (req.body.pseudo) === "undefined") {
                 return res.status(422).send("impossible d'envoyer un pseudo inexistant");
             }
-            const getPseudo = await db.getRepository(user).findOneBy({pseudo: req.body.pseudo})
+            const getPseudo = await db.getRepository(User).findOneBy({ pseudo: req.body.pseudo })
             console.log(getPseudo);
-            if (getPseudo) {
+            if (getPseudo !== null) {
                 return res.send("le pseudo existe déjà")
             }
-            const createdUser = await db.getRepository(user).save({ pseudo: req.body.pseudo });
+            const createdUser = await db.getRepository(User).save({ pseudo: req.body.pseudo });
             res.send(createdUser);
         } catch (error) {
             console.error(error);
@@ -40,7 +41,7 @@ module.exports = {
     },
     getAll: async (req, res) => {
         try {
-            const getUser = await db.getRepository(user).find();
+            const getUser = await db.getRepository(User).find();
             res.send(getUser);
         } catch (error) {
             console.error(error);
@@ -60,7 +61,7 @@ module.exports = {
     // },
     deleteOne: async (req, res) => {
         try {
-            const result = await db.getRepository(user).delete(req.params.id);
+            const result = await db.getRepository(User).delete(req.params.id);
             if (result.affected === 0) {
                 return res.status(404).send("L'utilisateur n'a pas été trouvé");
             }
@@ -71,3 +72,5 @@ module.exports = {
         }
     },
 };
+
+export default usersController;

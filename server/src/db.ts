@@ -1,8 +1,8 @@
-const typeorm = require('typeorm');
-const User = require('./entity/user');
+import { DataSource } from 'typeorm';
+import User from './entity/User';
 
 // initialisation de la bdd
-const datasource = new typeorm.DataSource({
+const datasource = new DataSource({
     type: 'sqlite',
     database: './pointnclickdb.sqlite',
     synchronize: true,
@@ -10,4 +10,4 @@ const datasource = new typeorm.DataSource({
     logging: ["query", "error"],
 });
 
-module.exports = datasource;
+export default datasource;
