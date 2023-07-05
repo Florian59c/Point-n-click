@@ -1,22 +1,25 @@
-import { useEffect, useState } from 'react';
+// import { useState } from 'react';
+import { useUsersQuery } from '../../gql/generated/schema';
 import './css/BestPlayers.css';
-import axios from 'axios';
-import { useQuery, gql } from '@apollo/client';
+// import { useQuery, gql } from '@apollo/client';
 
-const Get_Best_Players = gql`
-query Users {
-  getUsers {
-    id
-    pseudo
-  }
-}
-`;
+// // https://www.apollographql.com/docs/react/get-started/
+// const Get_Best_Players = gql`
+// query Users {
+//   getUsers {
+//     id
+//     pseudo
+//   }
+// }
+// `;
 
 function BestPlayers() {
 
-  const { loading, data, refetch } = useQuery(Get_Best_Players);
+  const { data } = useUsersQuery();
   const users = data?.getUsers || [];
+  console.log(data);
   console.log(users);
+  console.log(users.length);
 
   // const [users, setUsers] = useState([]);
   // const [error, setError] = useState("");
@@ -38,10 +41,17 @@ function BestPlayers() {
 
   return (
     <div>
+      {typeof data === "undefined" ? (
+        <p>Impossible de recupérer les utilisateurs depuis l'API</p>
+      ) : (
+        users.map((user) => (
+          <p key={user.id}>{user.pseudo}</p>
+        ))
+      )}
       {/* {error ? <div className='error'>{error}</div> : null} */}
-      {users.map((user) => (
-        <p>{user.pseudo}</p>
-      ))}
+      {/* {users.map((user) => (
+        <p key={user.id}>{user.pseudo}</p>
+      ))} */}
     </div>
   );
 }
