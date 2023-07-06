@@ -1,4 +1,5 @@
 // import { EntitySchema } from 'typeorm';
+import { ObjectType, Field } from 'type-graphql';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 // // creation d'une entité - equivalant au tables et colonnes du sql
@@ -26,12 +27,15 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 //     }
 // });
 
+@ObjectType()
 @Entity()
 class Users {
     @PrimaryGeneratedColumn()
+    @Field()
     id: number
 
     @Column({ unique: true })
+    @Field()
     pseudo: string
 }
 

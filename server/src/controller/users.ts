@@ -39,15 +39,15 @@ const usersController: iController = {
             res.status(500).send("erreur lors de la creation de l'utilisateur");
         }
     },
-    getAll: async (req, res) => {
-        try {
-            const getUser = await db.getRepository(User).find();
-            res.send(getUser);
-        } catch (error) {
-            console.error(error);
-            res.status(500).send("erreur lors de la l'affichage des utilisateurs");
-        }
-    },
+    // getAll: async (req, res) => {
+    //     try {
+    //         const getUser = await db.getRepository(User).find();
+    //         res.send(getUser);
+    //     } catch (error) {
+    //         console.error(error);
+    //         res.status(500).send("erreur lors de la l'affichage des utilisateurs");
+    //     }
+    // },
     // getPseudoStartWithF: async (req, res) => {
     //     try {
     //         const getUserStartWithF = await db.getRepository(user).createQueryBuilder('users')
