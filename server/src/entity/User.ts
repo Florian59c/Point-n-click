@@ -37,6 +37,18 @@ class Users {
     @Column({ unique: true })
     @Field()
     pseudo: string
+
+    @Column({ unique: true })
+    @Field()
+    email: string
+
+    @Column({ unique: true })
+    @Field()
+    password: string
+
+    @Column()
+    @Field()
+    bestScore: number
 }
 
 export default Users;

@@ -1,6 +1,9 @@
-query Users {
+query GetUsers {
   getUsers {
     id
     pseudo
+    email
+    password
+    bestScore
   }
 }

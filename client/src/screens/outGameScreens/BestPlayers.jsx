@@ -1,5 +1,5 @@
 // import { useState } from 'react';
-import { useUsersQuery } from '../../gql/generated/schema';
+import { useGetUsersQuery } from '../../gql/generated/schema';
 import './css/BestPlayers.css';
 // import { useQuery, gql } from '@apollo/client';
 
@@ -15,7 +15,7 @@ import './css/BestPlayers.css';
 
 function BestPlayers() {
 
-  const { data } = useUsersQuery();
+  const { data } = useGetUsersQuery();
   const users = data?.getUsers || [];
   console.log(data);
   console.log(users);
@@ -45,7 +45,11 @@ function BestPlayers() {
         <p>Impossible de recupérer les utilisateurs depuis l'API</p>
       ) : (
         users.map((user) => (
-          <p key={user.id}>{user.pseudo}</p>
+          <div>
+            <p key={user.id}>{user.pseudo}</p>
+            <p key={user.id}>{user.email}</p>
+            <p key={user.id}>{user.bestScore}</p>
+          </div>
         ))
       )}
       {/* {error ? <div className='error'>{error}</div> : null} */}

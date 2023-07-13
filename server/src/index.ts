@@ -10,6 +10,7 @@ import User from './entity/User';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { UserResolver } from "./resolvers/userResolver";
 import { buildSchema } from "type-graphql";
+import { GameResolver } from "./resolvers/gameResolver";
 
 // https://www.apollographql.com/docs/apollo-server/v3/getting-started/
 
@@ -47,10 +48,10 @@ app.use(express.json());
 // utilisation de cors pour eviter les problèmes de liaison avec le front lié aux navigateurs
 app.use(cors());
 
-app.get('/hello', (req, res) => {
-    console.log('new request');
-    res.send('salut');
-});
+// app.get('/hello', (req, res) => {
+//     console.log('new request');
+//     res.send('salut');
+// });
 
 app.post('/users', usersController.create);
 // app.get('/users', usersController.getAll);
@@ -62,7 +63,7 @@ async function start(): Promise<void> {
     await datasource.initialize();
 
     const schema = await buildSchema({
-        resolvers: [UserResolver],
+        resolvers: [UserResolver, GameResolver],
     });
 
     const server = new ApolloServer({

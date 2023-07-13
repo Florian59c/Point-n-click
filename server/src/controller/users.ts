@@ -32,7 +32,8 @@ const usersController: iController = {
             if (getPseudo !== null) {
                 return res.send("le pseudo existe déjà")
             }
-            const createdUser = await db.getRepository(User).save({ pseudo: req.body.pseudo });
+            const createdUser = await db.getRepository(User)
+                .save({ pseudo: req.body.pseudo, email: req.body.email, password: req.body.password, bestScore: req.body.bestScore });
             res.send(createdUser);
         } catch (error) {
             console.error(error);
