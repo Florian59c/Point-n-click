@@ -17,4 +17,11 @@ export class UserResolver {
         //     throw new ApolloError("erreur lors de la l'affichage des utilisateurs");
         // }
     };
+
+    @Query(() => [User])
+    async get10BestUsers(): Promise<User[]> {
+        const get10BestUsers = (await datasource.getRepository(User)
+            .find({ order: { bestScore: "ASC" }, take: 10 }));
+        return get10BestUsers;
+    };
 };

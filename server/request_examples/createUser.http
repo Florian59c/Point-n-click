@@ -2,8 +2,8 @@ POST http://localhost:4001/users
 Content-Type: application/json
 
 {
-    "pseudo": "Ryouketsu",
-    "email": "Ryouketsu@test.fr",
-    "password": "test2",
-    "bestScore": "10000"
+    "pseudo": "Ryouketsu5",
+    "email": "Ryouketsu5@test.fr",
+    "password": "test6",
+    "bestScore": "1600"
 }

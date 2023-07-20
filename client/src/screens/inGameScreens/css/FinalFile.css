@@ -1,0 +1,13 @@
+a {
+    text-decoration: none;
+}
+
+.final_file {
+    color: black;
+    cursor: pointer;
+    font-size: xx-large;
+}
+
+.final_file p:hover {
+    text-decoration: underline;
+}

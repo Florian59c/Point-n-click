@@ -7,3 +7,11 @@ query GetUsers {
     bestScore
   }
 }
+
+query Get10BestUsers {
+  get10BestUsers {
+    id
+    pseudo
+    bestScore
+  }
+}

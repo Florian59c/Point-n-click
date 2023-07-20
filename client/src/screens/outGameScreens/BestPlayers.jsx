@@ -1,5 +1,5 @@
 // import { useState } from 'react';
-import { useGetUsersQuery } from '../../gql/generated/schema';
+import { useGet10BestUsersQuery } from '../../gql/generated/schema';
 import './css/BestPlayers.css';
 // import { useQuery, gql } from '@apollo/client';
 
@@ -15,11 +15,19 @@ import './css/BestPlayers.css';
 
 function BestPlayers() {
 
-  const { data } = useGetUsersQuery();
-  const users = data?.getUsers || [];
+  const { data } = useGet10BestUsersQuery();
+  const bestUsers = data?.get10BestUsers || [];
   console.log(data);
-  console.log(users);
-  console.log(users.length);
+  console.log(bestUsers);
+  console.log(bestUsers.length);
+
+  function convertScore(UserScore) {
+    const secondes = UserScore % 60;
+    const minutes = ((UserScore - secondes) / 60) % 60;
+    const heures = (((UserScore - secondes) / 60) - minutes) / 60;
+    const totalTime = heures + "h " + minutes + "m " + secondes + "s";
+    return totalTime;
+  }
 
   // const [users, setUsers] = useState([]);
   // const [error, setError] = useState("");
@@ -44,14 +52,14 @@ function BestPlayers() {
       {typeof data === "undefined" ? (
         <p>Impossible de recupérer les utilisateurs depuis l'API</p>
       ) : (
-        users.map((user) => (
+        bestUsers.map((bestUser) => (
           <div>
-            <p key={user.id}>{user.pseudo}</p>
-            <p key={user.id}>{user.email}</p>
-            <p key={user.id}>{user.bestScore}</p>
+            <p key={bestUser.id}>{bestUser.pseudo}</p>
+            <p key={bestUser.id}>{convertScore(bestUser.bestScore)}</p>
           </div>
         ))
       )}
+
       {/* {error ? <div className='error'>{error}</div> : null} */}
       {/* {users.map((user) => (
         <p key={user.id}>{user.pseudo}</p>
