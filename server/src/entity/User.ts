@@ -1,6 +1,7 @@
 // import { EntitySchema } from 'typeorm';
-import { ObjectType, Field } from 'type-graphql';
+import { ObjectType, Field, InputType } from 'type-graphql';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { MaxLength } from 'class-validator';
 
 // // creation d'une entité - equivalant au tables et colonnes du sql
 // // module.exports permet d'exporter le schema (ici dans index.js)
@@ -47,6 +48,22 @@ class Users {
     password: string
 
     @Column()
+    @Field()
+    bestScore: number
+}
+
+@InputType()
+export class UsersInput {
+    @Field()
+    @MaxLength(30)
+    pseudo: string
+
+    @Field()
+    email: string
+
+    @Field()
+    password: string
+
     @Field()
     bestScore: number
 }

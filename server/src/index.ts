@@ -53,9 +53,9 @@ app.use(cors());
 //     res.send('salut');
 // });
 
-app.post('/users', usersController.create);
+// app.post('/users', usersController.create);
 // app.get('/users', usersController.getAll);
-app.delete('/users/:id', usersController.deleteOne);
+// app.delete('/users/:id', usersController.deleteOne);
 // app.get('/users', usersController.getPseudoStartWithF);
 
 // attente que la bdd soit initialiser avent que le serveur commence à écouter sur un port

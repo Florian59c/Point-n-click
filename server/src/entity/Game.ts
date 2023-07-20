@@ -1,4 +1,4 @@
-import { ObjectType, Field } from 'type-graphql';
+import { ObjectType, Field, InputType } from 'type-graphql';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @ObjectType()
@@ -13,6 +13,15 @@ class Games {
     name: string
 
     @Column({ unique: true })
+    @Field()
+    code: string
+}
+
+@InputType()
+export class GamesInput {
+    @Field()
+    name: string
+
     @Field()
     code: string
 }

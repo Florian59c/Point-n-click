@@ -21,25 +21,25 @@ const usersController: iController = {
     */
 
     // version avec fonction asynchrone
-    create: async (req, res) => {
-        try {
-            // validation que l'utilisateur n'existe pas
-            if (req.body.pseudo === null || typeof (req.body.pseudo) === "undefined") {
-                return res.status(422).send("impossible d'envoyer un pseudo inexistant");
-            }
-            const getPseudo = await db.getRepository(User).findOneBy({ pseudo: req.body.pseudo })
-            console.log(getPseudo);
-            if (getPseudo !== null) {
-                return res.send("le pseudo existe déjà")
-            }
-            const createdUser = await db.getRepository(User)
-                .save({ pseudo: req.body.pseudo, email: req.body.email, password: req.body.password, bestScore: req.body.bestScore });
-            res.send(createdUser);
-        } catch (error) {
-            console.error(error);
-            res.status(500).send("erreur lors de la creation de l'utilisateur");
-        }
-    },
+    // create: async (req, res) => {
+    //     try {
+    //         // validation que l'utilisateur n'existe pas
+    //         if (req.body.pseudo === null || typeof (req.body.pseudo) === "undefined") {
+    //             return res.status(422).send("impossible d'envoyer un pseudo inexistant");
+    //         }
+    //         const getPseudo = await db.getRepository(User).findOneBy({ pseudo: req.body.pseudo })
+    //         console.log(getPseudo);
+    //         if (getPseudo !== null) {
+    //             return res.send("le pseudo existe déjà")
+    //         }
+    //         const createdUser = await db.getRepository(User)
+    //             .save({ pseudo: req.body.pseudo, email: req.body.email, password: req.body.password, bestScore: req.body.bestScore });
+    //         res.send(createdUser);
+    //     } catch (error) {
+    //         console.error(error);
+    //         res.status(500).send("erreur lors de la creation de l'utilisateur");
+    //     }
+    // },
     // getAll: async (req, res) => {
     //     try {
     //         const getUser = await db.getRepository(User).find();
@@ -60,18 +60,18 @@ const usersController: iController = {
     //         res.status(500).send("erreur lors de la l'affichage des utilisateurs commençant par F");
     //     }
     // },
-    deleteOne: async (req, res) => {
-        try {
-            const result = await db.getRepository(User).delete(req.params.id);
-            if (result.affected === 0) {
-                return res.status(404).send("L'utilisateur n'a pas été trouvé");
-            }
-            return res.send("suppression effectué");
-        } catch (error) {
-            console.error(error);
-            res.status(500).send("erreur lors de la suppression de l'utilisateur");
-        }
-    },
+    // deleteOne: async (req, res) => {
+    //     try {
+    //         const result = await db.getRepository(User).delete(req.params.id);
+    //         if (result.affected === 0) {
+    //             return res.status(404).send("L'utilisateur n'a pas été trouvé");
+    //         }
+    //         return res.send("suppression effectué");
+    //     } catch (error) {
+    //         console.error(error);
+    //         res.status(500).send("erreur lors de la suppression de l'utilisateur");
+    //     }
+    // },
 };
 
 export default usersController;
