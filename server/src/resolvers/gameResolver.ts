@@ -11,7 +11,6 @@ export class GameResolver {
         return getGame;
     };
 
-
     @Mutation(() => Game)
     async createGame(@Arg("data") data: GamesInput): Promise<Game> {
         return await datasource.getRepository(Game).save(data);

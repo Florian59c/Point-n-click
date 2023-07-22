@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import User, { UsersInput } from '../entity/User';
 import datasource from '../db';
 import { ApolloError } from 'apollo-server';
-// import { ApolloError } from 'apollo-server';
 
 @Resolver()
 export class UserResolver {
@@ -10,13 +9,6 @@ export class UserResolver {
     async getUsers(): Promise<User[]> {
         const getUser = await datasource.getRepository(User).find();
         return getUser;
-        // try {
-        //     const getUser = await datasource.getRepository(User).find();
-        //     return getUser;
-        // } catch (error) {
-        //     console.error(error);
-        //     throw new ApolloError("erreur lors de la l'affichage des utilisateurs");
-        // }
     };
 
     @Query(() => [User])

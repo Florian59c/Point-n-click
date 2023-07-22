@@ -25,7 +25,11 @@ function FinalFile() {
       console.log("endTime : " + endTime);
       console.log("score : " + score);
 
+      //
+      //
       // envoyer le score dans la table bestScore du currentUser
+      //
+      //
 
     }
   }
