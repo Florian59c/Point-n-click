@@ -1,0 +1,17 @@
+query GetUsers {
+  getUsers {
+    id
+    pseudo
+    email
+    password
+    bestScore
+  }
+}
+
+query Get10BestUsers {
+  get10BestUsers {
+    id
+    pseudo
+    bestScore
+  }
+}

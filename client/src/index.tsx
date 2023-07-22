@@ -4,12 +4,18 @@ import ReactDOM from 'react-dom/client';
 import React from 'react';
 import App from './App';
 import './index.css';
+import { ApolloProvider } from '@apollo/client';
+import apolloClient from './services/apolloClient';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ApolloProvider client={apolloClient}>
+        <App />
+      </ApolloProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
@@ -18,3 +24,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+

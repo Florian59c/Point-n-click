@@ -1,7 +1,7 @@
+import './App.css';
 import { Routes, Route } from "react-router-dom";
 import Home from "./screens/outGameScreens/Home";
 import BestPlayers from "./screens/outGameScreens/BestPlayers";
-import './App.css';
 import Login from "./screens/outGameScreens/Login";
 import Register from "./screens/outGameScreens/Register";
 import Prologue from "./screens/outGameScreens/Prologue";
