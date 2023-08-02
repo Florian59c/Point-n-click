@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
-import User, { UsersInput } from '../entity/User';
+import User, { LoginInput, UsersInput, hashPassword, verifyPassword } from '../entity/User';
 import datasource from '../db';
 import { ApolloError } from 'apollo-server';
 
@@ -19,8 +19,22 @@ export class UserResolver {
     };
 
     @Mutation(() => User)
-    async createUser(@Arg("data") data: UsersInput): Promise<User> {
-        return await datasource.getRepository(User).save(data);
+    async createUser(@Arg("data") { pseudo, email, password }: UsersInput): Promise<User> {
+        const bestScore = 86400;
+        const hashedPassword = await hashPassword(password);
+        return await datasource.getRepository(User).save({ pseudo, email, hashedPassword, bestScore });
+    }
+
+    @Mutation(() => Boolean)
+    async login(@Arg("data") { email, password }: LoginInput): Promise<boolean> {
+        const user = await datasource.getRepository(User).findOneBy({ email });
+        console.log(user);
+
+        // si l'utilisateur n'existe pas ou si son mdp n'est pas verifié
+        if (user === null || !(await verifyPassword(password, user.hashedPassword))) {
+            throw new ApolloError("L'utilisateur n'existe pas", "INVALID_CREDS");
+        }
+        return true;
     }
 
     @Mutation(() => Boolean)
