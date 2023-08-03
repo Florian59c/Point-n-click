@@ -1,7 +1,10 @@
-import { Resolver, Query, Mutation, Arg } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, Ctx, Authorized } from 'type-graphql';
 import User, { LoginInput, UsersInput, hashPassword, verifyPassword } from '../entity/User';
 import datasource from '../db';
 import { ApolloError } from 'apollo-server';
+import jwt from 'jsonwebtoken';
+import { env } from '../env';
+import { ContextType } from '..';
 
 @Resolver()
 export class UserResolver {
@@ -25,8 +28,8 @@ export class UserResolver {
         return await datasource.getRepository(User).save({ pseudo, email, hashedPassword, bestScore });
     }
 
-    @Mutation(() => Boolean)
-    async login(@Arg("data") { email, password }: LoginInput): Promise<boolean> {
+    @Mutation(() => String)
+    async login(@Arg("data") { email, password }: LoginInput, @Ctx() { res }: ContextType): Promise<string> {
         const user = await datasource.getRepository(User).findOneBy({ email });
         console.log(user);
 
@@ -34,8 +37,29 @@ export class UserResolver {
         if (user === null || !(await verifyPassword(password, user.hashedPassword))) {
             throw new ApolloError("L'utilisateur n'existe pas", "INVALID_CREDS");
         }
+        const token = jwt.sign({ userId: user.id }, env.JWT_PRIVATE_KEY);
+        // httpOnly est une option qui permet de resoudre une faille de securité dans laquel le jwt est exposé en js
+        // secure empeche au navigateur d'interpreter un cookie si l'application n'est pas en https
+        // expire permet de mettre une date d'expiration au token
+        res.cookie('token', token, { httpOnly: true, secure: env.NODE_ENV === "production" })
+        return token;
+    }
+
+    @Mutation(() => Boolean)
+    async logout(@Ctx() { res }: ContextType): Promise<boolean> {
+        res.clearCookie("token");
         return true;
     }
+
+    @Authorized()
+    @Query(() => User)
+    async profile(@Ctx() { currentUser }: ContextType): Promise<User> {
+        // si currentUser est undefined
+        if (typeof currentUser !== 'object') {
+            throw new ApolloError("Vous devez être connecté");
+        }
+        return currentUser;
+    };
 
     @Mutation(() => Boolean)
     async deleteUser(@Arg("userId") userId: number): Promise<Boolean> {
