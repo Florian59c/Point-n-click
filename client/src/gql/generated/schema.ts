@@ -69,10 +69,16 @@ export type MutationLoginArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  findGameCode: Scalars['String'];
   get10BestUsers: Array<Users>;
   getGames: Array<Games>;
   getUsers: Array<Users>;
   profile: Users;
+};
+
+
+export type QueryFindGameCodeArgs = {
+  data: Scalars['String'];
 };
 
 export type Users = {
@@ -93,6 +99,13 @@ export type GetGamesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetGamesQuery = { __typename?: 'Query', getGames: Array<{ __typename?: 'Games', id: number, name: string, code: string }> };
+
+export type FindGameCodeQueryVariables = Exact<{
+  data: Scalars['String'];
+}>;
+
+
+export type FindGameCodeQuery = { __typename?: 'Query', findGameCode: string };
 
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -172,6 +185,39 @@ export function useGetGamesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetGamesQueryHookResult = ReturnType<typeof useGetGamesQuery>;
 export type GetGamesLazyQueryHookResult = ReturnType<typeof useGetGamesLazyQuery>;
 export type GetGamesQueryResult = Apollo.QueryResult<GetGamesQuery, GetGamesQueryVariables>;
+export const FindGameCodeDocument = gql`
+    query FindGameCode($data: String!) {
+  findGameCode(data: $data)
+}
+    `;
+
+/**
+ * __useFindGameCodeQuery__
+ *
+ * To run a query within a React component, call `useFindGameCodeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindGameCodeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindGameCodeQuery({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useFindGameCodeQuery(baseOptions: Apollo.QueryHookOptions<FindGameCodeQuery, FindGameCodeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindGameCodeQuery, FindGameCodeQueryVariables>(FindGameCodeDocument, options);
+      }
+export function useFindGameCodeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindGameCodeQuery, FindGameCodeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindGameCodeQuery, FindGameCodeQueryVariables>(FindGameCodeDocument, options);
+        }
+export type FindGameCodeQueryHookResult = ReturnType<typeof useFindGameCodeQuery>;
+export type FindGameCodeLazyQueryHookResult = ReturnType<typeof useFindGameCodeLazyQuery>;
+export type FindGameCodeQueryResult = Apollo.QueryResult<FindGameCodeQuery, FindGameCodeQueryVariables>;
 export const GetProfileDocument = gql`
     query getProfile {
   profile {

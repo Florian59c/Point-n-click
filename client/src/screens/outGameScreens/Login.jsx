@@ -31,7 +31,7 @@ function Login() {
       ) : (
         <div>
           <p>Login</p>
-          <form on onSubmit={async (e) => {
+          <form onSubmit={async (e) => {
             e.preventDefault()
             console.log({ email, password });
             setError('');

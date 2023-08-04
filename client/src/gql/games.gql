@@ -5,3 +5,7 @@ query GetGames {
     code
   }
 }
+
+query FindGameCode($data: String!) {
+  findGameCode(data: $data)
+}
