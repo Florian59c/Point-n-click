@@ -23,6 +23,10 @@ mutation CreateUser($data: UsersInput!) {
   }
 }
 
+mutation UpdateUserBestScore($data: UpdateUserBestScoreInput!) {
+  updateUserBestScore(data: $data)
+}
+
 mutation DeleteUser($userId: Float!) {
   deleteUser(userId: $userId)
 }

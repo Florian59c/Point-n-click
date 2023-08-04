@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
-import Game, { FindGameInput, GamesInput } from '../entity/Game';
+import Game, { GamesInput } from '../entity/Game';
 import datasource from '../db';
 import { ApolloError } from 'apollo-server';
 

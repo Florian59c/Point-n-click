@@ -54,8 +54,14 @@ export class LoginInput {
     password: string
 }
 
+@InputType()
+export class UpdateUserBestScoreInput {
+    @Field()
+    userId: number
 
-
+    @Field()
+    newBestScore: number
+}
 
 // configuration de hashage
 const hashingOptions = {

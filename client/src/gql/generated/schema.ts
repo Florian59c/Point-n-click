@@ -40,6 +40,7 @@ export type Mutation = {
   deleteUser: Scalars['Boolean'];
   login: Scalars['String'];
   logout: Scalars['Boolean'];
+  updateUserBestScore: Scalars['Boolean'];
 };
 
 
@@ -67,6 +68,11 @@ export type MutationLoginArgs = {
   data: LoginInput;
 };
 
+
+export type MutationUpdateUserBestScoreArgs = {
+  data: UpdateUserBestScoreInput;
+};
+
 export type Query = {
   __typename?: 'Query';
   findGameCode: Scalars['String'];
@@ -79,6 +85,11 @@ export type Query = {
 
 export type QueryFindGameCodeArgs = {
   data: Scalars['String'];
+};
+
+export type UpdateUserBestScoreInput = {
+  newBestScore: Scalars['Float'];
+  userId: Scalars['Float'];
 };
 
 export type Users = {
@@ -140,6 +151,13 @@ export type CreateUserMutationVariables = Exact<{
 
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'Users', id: number, pseudo: string, email: string } };
+
+export type UpdateUserBestScoreMutationVariables = Exact<{
+  data: UpdateUserBestScoreInput;
+}>;
+
+
+export type UpdateUserBestScoreMutation = { __typename?: 'Mutation', updateUserBestScore: boolean };
 
 export type DeleteUserMutationVariables = Exact<{
   userId: Scalars['Float'];
@@ -422,6 +440,37 @@ export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const UpdateUserBestScoreDocument = gql`
+    mutation UpdateUserBestScore($data: UpdateUserBestScoreInput!) {
+  updateUserBestScore(data: $data)
+}
+    `;
+export type UpdateUserBestScoreMutationFn = Apollo.MutationFunction<UpdateUserBestScoreMutation, UpdateUserBestScoreMutationVariables>;
+
+/**
+ * __useUpdateUserBestScoreMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserBestScoreMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserBestScoreMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserBestScoreMutation, { data, loading, error }] = useUpdateUserBestScoreMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateUserBestScoreMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserBestScoreMutation, UpdateUserBestScoreMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserBestScoreMutation, UpdateUserBestScoreMutationVariables>(UpdateUserBestScoreDocument, options);
+      }
+export type UpdateUserBestScoreMutationHookResult = ReturnType<typeof useUpdateUserBestScoreMutation>;
+export type UpdateUserBestScoreMutationResult = Apollo.MutationResult<UpdateUserBestScoreMutation>;
+export type UpdateUserBestScoreMutationOptions = Apollo.BaseMutationOptions<UpdateUserBestScoreMutation, UpdateUserBestScoreMutationVariables>;
 export const DeleteUserDocument = gql`
     mutation DeleteUser($userId: Float!) {
   deleteUser(userId: $userId)

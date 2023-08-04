@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg, Ctx, Authorized } from 'type-graphql';
-import User, { LoginInput, UsersInput, hashPassword, verifyPassword } from '../entity/User';
+import User, { LoginInput, UpdateUserBestScoreInput, UsersInput, hashPassword, verifyPassword } from '../entity/User';
 import datasource from '../db';
 import { ApolloError } from 'apollo-server';
 import jwt from 'jsonwebtoken';
@@ -62,6 +62,15 @@ export class UserResolver {
     };
 
     @Mutation(() => Boolean)
+    async updateUserBestScore(@Arg("data") { userId, newBestScore }: UpdateUserBestScoreInput): Promise<Boolean> {
+        const result = await datasource.getRepository(User).update({ id: userId }, { bestScore: newBestScore })
+        if (result.affected === 0) {
+            throw new ApolloError("L'utilisateur n'a pas été trouvé", "NOT_FOUND");
+        }
+        return true;
+    }
+
+    @Mutation(() => Boolean)
     async deleteUser(@Arg("userId") userId: number): Promise<Boolean> {
         const result = await datasource.getRepository(User).delete(userId);
         if (result.affected === 0) {
@@ -69,5 +78,4 @@ export class UserResolver {
         }
         return true;
     }
-
 };
