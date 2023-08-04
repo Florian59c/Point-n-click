@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import './css/Login.css';
 import { useGetProfileQuery, useLoginMutation, useLogoutMutation } from '../../gql/generated/schema';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
   const [login] = useLoginMutation();
   const [logout] = useLogoutMutation();
   const { data: currentUser, client } = useGetProfileQuery({ errorPolicy: 'ignore' });
-
   console.log({ currentUser });
 
   return (
@@ -41,6 +42,7 @@ function Login() {
               setError('invalid credentials');
             } finally {
               client.resetStore();
+              navigate("/prologue");
             }
           }}>
             <label htmlFor="email">

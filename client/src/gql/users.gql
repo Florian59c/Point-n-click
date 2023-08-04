@@ -14,3 +14,15 @@ query Get10BestUsers {
     bestScore
   }
 }
+
+mutation CreateUser($data: UsersInput!) {
+  createUser(data: $data) {
+    id
+    pseudo
+    email
+  }
+}
+
+mutation DeleteUser($userId: Float!) {
+  deleteUser(userId: $userId)
+}
