@@ -1,7 +1,7 @@
-import datasource from "../db";
 import Game from "../entity/Game";
+import datasource from "../db";
 
-async function reset(): Promise<void> {
+async function resetGames(): Promise<void> {
     await datasource.initialize();
     await datasource.getRepository(Game).delete({});
     await datasource.getRepository(Game).save([
@@ -14,8 +14,8 @@ async function reset(): Promise<void> {
         },
     ]);
     await datasource.destroy();
-    console.log("La table des jeux a été correctement réinitialisé !");
+    console.log("La table Games a été correctement réinitialisé !");
 
 }
 
-reset().catch(console.error);
+resetGames().catch(console.error);

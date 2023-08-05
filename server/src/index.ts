@@ -1,22 +1,20 @@
-import "reflect-metadata";
-// cherche le code correspondant au package express
-import express from 'express';
-import cors from 'cors';
-import datasource from './db';
-import { ApolloServer } from 'apollo-server';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { UserResolver } from "./resolvers/userResolver";
-import { buildSchema } from "type-graphql";
 import { GameResolver } from "./resolvers/gameResolver";
-import jwt from 'jsonwebtoken';
-import { env } from "./env";
+import { ApolloServer } from 'apollo-server';
+import { buildSchema } from "type-graphql";
 import User from "./entity/User";
+import jwt from 'jsonwebtoken';
+import express from 'express';
+import datasource from './db';
+import { env } from "./env";
 import cookie from "cookie";
+import "reflect-metadata";
+import cors from 'cors';
 
 // https://www.apollographql.com/docs/apollo-server/v3/getting-started/
 
 const app = express();
-
 // permet d'acceder au donnees envoyer par le client dans le corp de la requete sur le gestionnaire de routes
 // sans ça, req.body sera forcement undefined
 app.use(express.json());

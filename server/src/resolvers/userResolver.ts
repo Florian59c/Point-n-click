@@ -1,10 +1,10 @@
-import { Resolver, Query, Mutation, Arg, Ctx, Authorized } from 'type-graphql';
 import User, { LoginInput, UpdateUserBestScoreInput, UsersInput, hashPassword, verifyPassword } from '../entity/User';
-import datasource from '../db';
+import { Resolver, Query, Mutation, Arg, Ctx, Authorized } from 'type-graphql';
 import { ApolloError } from 'apollo-server';
+import { ContextType } from '..';
+import datasource from '../db';
 import jwt from 'jsonwebtoken';
 import { env } from '../env';
-import { ContextType } from '..';
 
 @Resolver()
 export class UserResolver {

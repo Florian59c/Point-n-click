@@ -1,7 +1,7 @@
-import datasource from "../db";
 import User, { hashPassword } from "../entity/User";
+import datasource from "../db";
 
-async function reset(): Promise<void> {
+async function resetUsers(): Promise<void> {
     await datasource.initialize();
     await datasource.getRepository(User).delete({});
     await datasource.getRepository(User).save([
@@ -67,8 +67,7 @@ async function reset(): Promise<void> {
         },
     ]);
     await datasource.destroy();
-    console.log("done !");
-
+    console.log("La table Users a été correctement réinitialisée !");
 }
 
-reset().catch(console.error);
+resetUsers().catch(console.error);

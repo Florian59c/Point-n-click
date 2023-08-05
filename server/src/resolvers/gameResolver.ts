@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import Game, { GamesInput } from '../entity/Game';
-import datasource from '../db';
 import { ApolloError } from 'apollo-server';
+import datasource from '../db';
 
 @Resolver()
 export class GameResolver {
