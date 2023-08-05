@@ -4,6 +4,7 @@ import Home from "./screens/outGameScreens/Home";
 import BestPlayers from "./screens/outGameScreens/BestPlayers";
 import Login from "./screens/outGameScreens/Login";
 import Register from "./screens/outGameScreens/Register";
+import Delete from "./screens/outGameScreens/Delete";
 import Prologue from "./screens/outGameScreens/Prologue";
 import StartPage from "./screens/inGameScreens/StartPage";
 import Desktop from "./screens/inGameScreens/Desktop";
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/delete" element={<Delete />} />
         <Route path="/prologue" element={<Prologue />} />
         <Route path="/start-page" element={<StartPage />} />
         <Route path="/desktop" element={<Desktop />} />
