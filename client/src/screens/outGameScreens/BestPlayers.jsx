@@ -23,9 +23,9 @@ function BestPlayers() {
         <p>Impossible de recupérer les utilisateurs depuis l'API</p>
       ) : (
         bestUsers.map((bestUser) => (
-          <div>
-            <p key={bestUser.id}>{bestUser.pseudo}</p>
-            <p key={bestUser.id}>{convertScore(bestUser.bestScore)}</p>
+          <div key={bestUser.id}>
+            <p>{bestUser.pseudo}</p>
+            <p>{convertScore(bestUser.bestScore)}</p>
           </div>
         ))
       )}

@@ -11,6 +11,17 @@ export class GameResolver {
         return getGame;
     };
 
+    @Query(() => String)
+    async findGameCode(@Arg("data") name: string): Promise<string> {
+        const findGame = await datasource.getRepository(Game).findOneBy({ name });
+        console.log(findGame?.code);
+        if (findGame === null) {
+            throw new ApolloError("Le jeu n'existe pas", "INVALID_CREDS");
+        } else {
+            return findGame.code;
+        }
+    };
+
     @Mutation(() => Game)
     async createGame(@Arg("data") data: GamesInput): Promise<Game> {
         return await datasource.getRepository(Game).save(data);

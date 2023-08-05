@@ -3,7 +3,6 @@ query GetUsers {
     id
     pseudo
     email
-    password
     bestScore
   }
 }
@@ -14,4 +13,20 @@ query Get10BestUsers {
     pseudo
     bestScore
   }
+}
+
+mutation CreateUser($data: UsersInput!) {
+  createUser(data: $data) {
+    id
+    pseudo
+    email
+  }
+}
+
+mutation UpdateUserBestScore($data: UpdateUserBestScoreInput!) {
+  updateUserBestScore(data: $data)
+}
+
+mutation DeleteUser($userId: Float!) {
+  deleteUser(userId: $userId)
 }
