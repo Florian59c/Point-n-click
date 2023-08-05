@@ -1,13 +1,11 @@
 import { DataSource } from 'typeorm';
-import { env } from "./env";
 import User from './entity/User';
 import Game from './entity/Game';
+import { env } from "./env";
 
-// initialisation de la bdd
+// Paramètres d'initialisation de la bdd
 const datasource = new DataSource({
     type: 'postgres',
-    // host: 'localhost', // pour faire tourner dans localhost en dehors de docker
-    // host: 'db', // pour faire tourner dans docker
     host: env.DB_HOST,
     port: env.DB_PORT,
     username: env.DB_USER,

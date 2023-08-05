@@ -1,6 +1,6 @@
-import { ObjectType, Field, InputType } from 'type-graphql';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { IsEmail, Matches, MaxLength, MinLength } from 'class-validator';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { ObjectType, Field, InputType } from 'type-graphql';
 import { argon2id, hash, verify } from 'argon2';
 
 @ObjectType()
@@ -25,6 +25,8 @@ class Users {
     @Field()
     bestScore: number
 }
+
+/** ImputType */
 
 @InputType()
 export class UsersInput {
@@ -62,6 +64,8 @@ export class UpdateUserBestScoreInput {
     @Field()
     newBestScore: number
 }
+
+/** Configuration du Hashed Password */
 
 // configuration de hashage
 const hashingOptions = {
