@@ -1,6 +1,7 @@
-import { ObjectType, Field, InputType } from 'type-graphql';
+import { IsEmail, Matches, MaxLength, MinLength } from 'class-validator';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { MaxLength } from 'class-validator';
+import { ObjectType, Field, InputType } from 'type-graphql';
+import { argon2id, hash, verify } from 'argon2';
 
 @ObjectType()
 @Entity()
@@ -17,14 +18,15 @@ class Users {
     @Field()
     email: string
 
-    @Column({ unique: true })
-    @Field()
-    password: string
+    @Column()
+    hashedPassword: string
 
     @Column()
     @Field()
     bestScore: number
 }
+
+/** ImputType */
 
 @InputType()
 export class UsersInput {
@@ -33,13 +35,52 @@ export class UsersInput {
     pseudo: string
 
     @Field()
+    @IsEmail()
     email: string
 
     @Field()
+    @MinLength(8)
+    // @Matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])$/)
     password: string
+}
+
+@InputType()
+export class LoginInput {
+    @Field()
+    @IsEmail()
+    email: string
 
     @Field()
-    bestScore: number
+    @MinLength(8)
+    // @Matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])$/)
+    password: string
 }
+
+@InputType()
+export class UpdateUserBestScoreInput {
+    @Field()
+    userId: number
+
+    @Field()
+    newBestScore: number
+}
+
+/** Configuration du Hashed Password */
+
+// configuration de hashage
+const hashingOptions = {
+    type: argon2id,
+    memoryCost: 2 ** 16,
+};
+
+// function pour ne pas répéter la configuration des options de hash
+export async function hashPassword(plain: string): Promise<string> {
+    return await hash(plain, hashingOptions);
+};
+
+// pour comparer un mdp en clair avec un mdp hashé
+export async function verifyPassword(plain: string, hashed: string): Promise<boolean> {
+    return await verify(hashed, plain, hashingOptions);
+};
 
 export default Users;

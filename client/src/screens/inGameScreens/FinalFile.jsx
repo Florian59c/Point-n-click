@@ -1,10 +1,24 @@
 import { useState, useEffect } from 'react';
 import './css/FinalFile.css';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useGetProfileQuery, useGetUsersQuery, useUpdateUserBestScoreMutation } from '../../gql/generated/schema';
 
 function FinalFile() {
 
   const [startTime, setStartTime] = useState(0);
+  const { data: currentUser } = useGetProfileQuery({ errorPolicy: 'ignore' });
+  console.log(currentUser);
+
+  // récupere tous les utilisateurs
+  const { data } = useGetUsersQuery();
+  const users = data?.getUsers || [];
+
+  // trouve le currentUser parmis les users et recupere son bestScore
+  const currentUserBestScore = users.find((user) => user.id === currentUser?.profile.id)?.bestScore;
+  console.log(currentUserBestScore);
+
+  const [updateBestScore] = useUpdateUserBestScoreMutation();
+  const navigate = useNavigate();
 
   // recupere le donnée startTime dans le local storege et la stocke dans le state au 1er chargement de la page
   useEffect(() => {
@@ -14,32 +28,38 @@ function FinalFile() {
     }
   }, []);
 
-  function endDate() {
+  async function endDate() {
     if (startTime <= 0) {
       alert("Impossible de calculer le score, car il n'y a pas de valeur de départ");
     } else {
       const endTime = Date.now();
-      const score = Math.trunc((endTime - startTime) / 1000);
+      const newScore = Math.trunc((endTime - startTime) / 1000);
 
       console.log("startTime : " + startTime);
       console.log("endTime : " + endTime);
-      console.log("score : " + score);
+      console.log("newScore : " + newScore);
 
-      //
-      //
-      // envoyer le score dans la table bestScore du currentUser
-      //
-      //
-
+      // envoie le score dans la table bestScore du currentUser, s'il existe et si son nouveaux score est meilleur que l'ancien
+      if (currentUser !== null || typeof currentUser !== "undefined") {
+        if (newScore < currentUserBestScore) {
+          const currentUserId = currentUser?.profile?.id;
+          console.log(currentUserId);
+          try {
+            await updateBestScore({ variables: { data: { userId: currentUserId, newBestScore: newScore } } });
+          } catch (err) {
+            console.error(err);
+          } finally {
+            navigate("/epilogue");
+          }
+        }
+      }
     }
   }
 
   return (
-    <Link to="/epilogue">
-      <div className='final_file' onClick={endDate}>
-        <p>message cliquable de fin sous condition</p>
-      </div>
-    </Link>
+    <div className='final_file' onClick={endDate}>
+      <p>message cliquable de fin sous condition</p>
+    </div>
   );
 }
 

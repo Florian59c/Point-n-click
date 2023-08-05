@@ -1,21 +1,17 @@
 // La page d'entrée ou on tape le mdp utilisateur
-import { useGetGamesQuery } from '../../gql/generated/schema';
+import { useFindGameCodeQuery } from '../../gql/generated/schema';
 import './css/StartPage.css';
 
 function StartPage() {
 
-  const { data } = useGetGamesQuery();
-  const games = data?.getGames || [];
-  console.log(data);
-  console.log(games);
-  console.log(games.length);
+  const pageCode = useFindGameCodeQuery({ variables: { data: "StartPage" } });
+  const gameCode = pageCode?.data?.findGameCode;
+
+  console.log("le code de la page est dans la constante gameCode et vaux : " + gameCode);
 
   return (
     <div>
       <p>StartPage</p>
-      {games.map((game) => (
-        <p key={game.id}>{game.name}</p>
-      ))}
     </div>
   );
 }
