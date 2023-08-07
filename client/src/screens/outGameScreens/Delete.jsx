@@ -14,10 +14,9 @@ function Delete() {
             try {
                 await deleteUser({ variables: { userId } });
                 client.resetStore();
+                navigate("/register");
             } catch (err) {
                 console.error(err);
-            } finally {
-                navigate("/register");
             }
         }
     }
@@ -29,6 +28,11 @@ function Delete() {
                     <p>Attention !</p>
                     <p>Si vous cliquez sur ce bouton, toutes les données liées a votre compte seront définitivement supprimées !!</p>
                     <button className='button-alert' onClick={deleteAccount}>Supprimer mon compte</button>
+                    <div className='return'>
+                        <Link to="/">
+                            <p>Retouner à la page d'accueil</p>
+                        </Link>
+                    </div>
                 </div>
             ) : (
                 <div>
@@ -37,8 +41,7 @@ function Delete() {
                         <button className='button-normal'>Se connecter</button>
                     </Link>
                 </div>
-            )
-            }
+            )}
         </div >
     );
 }

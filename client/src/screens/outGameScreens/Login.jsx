@@ -30,6 +30,11 @@ function Login() {
               Se déconnecter
             </button>
           </div>
+          <div className='return'>
+            <Link to="/">
+              <p>Retouner à la page d'accueil</p>
+            </Link>
+          </div>
         </div>
       ) : (
         <div>
@@ -67,10 +72,18 @@ function Login() {
               <p>Inscrivez-vous !</p>
             </Link>
           </p>
+          <div className='submit-button'>
+            <Link to="/prologue">
+              <button type="submit" className='button-normal'>Accéder au prologue</button>
+            </Link>
+          </div>
+          <Link className='to-delete' to="/delete">
+            <p>Cliquez ici pour supprimer votre compte</p>
+          </Link>
         </div>
       )
       }
-    </div>
+    </div >
   );
 }
 
