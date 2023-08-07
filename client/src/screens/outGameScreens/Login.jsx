@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './css/Login.css';
 import { useGetProfileQuery, useLoginMutation, useLogoutMutation } from '../../gql/generated/schema';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
 
@@ -15,47 +15,58 @@ function Login() {
   console.log({ currentUser });
 
   return (
-    <div>
+    <div className='login'>
       {currentUser?.profile ? (
-        <div>
-          <p>vous êtes connecté</p>
-          <button
-            onClick={async () => {
-              await logout();
-              client.resetStore();
-            }}
-          >
-            Se déconnecter
-          </button>
+        <div className='logout'>
+          <p>vous êtes connecté connecté avec l'adresse mail : {currentUser?.profile?.email}</p>
+          <div className='submit-button'>
+            <button
+              className='button-normal'
+              onClick={async () => {
+                await logout();
+                client.resetStore();
+              }}
+            >
+              Se déconnecter
+            </button>
+          </div>
         </div>
       ) : (
         <div>
-          <p>Login</p>
           <form onSubmit={async (e) => {
             e.preventDefault()
             console.log({ email, password });
             setError('');
             try {
               await login({ variables: { data: { email, password } } });
+              navigate("/prologue");
             } catch (err) {
               console.error(err);
-              setError('invalid credentials');
+              setError("L'adresse mail ou le mot de passe est incorrect");
             } finally {
               client.resetStore();
-              navigate("/prologue");
             }
           }}>
-            <label htmlFor="email">
-              <p>Email : </p>
-              <input type="email" id='email' value={email} onChange={(e) => setEmail(e.target.value)} />
-            </label>
-            <label htmlFor="password">
-              <p>Password : </p>
-              <input type="password" id='password' value={password} onChange={(e) => setPassword(e.target.value)} />
-            </label>
-            {error && <p>{error}</p>}
-            <button type="submit">Se connecter</button>
+            <div className='formulaire'>
+              <label htmlFor="email">
+                <p>Adresse Email : </p>
+                <input type="email" id='email' value={email} onChange={(e) => setEmail(e.target.value)} />
+              </label>
+              <label htmlFor="password">
+                <p>Mot de passe : </p>
+                <input type="password" id='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+              </label>
+            </div>
+            <div className='submit-button'>
+              <button type="submit" className='button-normal'>Se connecter</button>
+            </div>
+            {error && <p className='error'>{error}</p>}
           </form>
+          <p className='redirect'>Vous n’avez pas de compte ?&ensp;
+            <Link to="/register">
+              <p>Inscrivez-vous !</p>
+            </Link>
+          </p>
         </div>
       )
       }

@@ -1,0 +1,40 @@
+.button-normal {
+    display: inline-block;
+    border: 0.2rem solid rgb(144, 147, 163);
+    background-color: #444751;
+    border-radius: 5rem;
+    box-shadow: 0 1rem 1rem 0 rgb(0, 0, 0, 0.3);
+    background: linear-gradient(rgb(99, 99, 110), rgb(59, 61, 70));
+    box-sizing: border-box;
+    margin: 4rem 4rem 2rem 4rem;
+    color: rgb(235, 235, 235);
+    padding: 1rem;
+    font-size: 4rem;
+    width: 40rem;
+    height: 10rem;
+}
+
+.button-normal:hover {
+    border: 0.4rem solid rgb(164, 167, 183);
+    background-color: #585b65;
+    box-shadow: 0 0.5rem 0.5rem 0 rgb(0, 0, 0, 0.1);
+    background: linear-gradient(rgb(119, 119, 130), rgb(79, 81, 90));
+    cursor: pointer;
+    color: white;
+}
+
+.button-alert {
+    background-color: red;
+    color: rgb(218, 218, 218);
+    padding: 20px 60px;
+    margin: 50px 0;
+    border: none;
+    border-radius: 40px;
+    font-size: x-large;
+}
+
+.button-alert:hover {
+    background-color: rgb(177, 0, 0);
+    color: white;
+    cursor: pointer;
+}

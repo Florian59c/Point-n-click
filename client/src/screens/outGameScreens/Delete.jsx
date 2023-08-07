@@ -25,16 +25,16 @@ function Delete() {
     return (
         <div className='delete'>
             {currentUser ? (
-                <div>
+                <div className='danger'>
                     <p>Attention !</p>
                     <p>Si vous cliquez sur ce bouton, toutes les données liées a votre compte seront définitivement supprimées !!</p>
-                    <button className='alert' onClick={deleteAccount}>Supprimer mon compte</button>
+                    <button className='button-alert' onClick={deleteAccount}>Supprimer mon compte</button>
                 </div>
             ) : (
                 <div>
-                    <p style={{ color: "white" }}>Vous n'êtes pas connecté</p>
+                    <p>Vous n'êtes pas connecté</p>
                     <Link to="/login">
-                        <button>Se connecter</button>
+                        <button className='button-normal'>Se connecter</button>
                     </Link>
                 </div>
             )
