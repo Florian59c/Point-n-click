@@ -1,0 +1,49 @@
+.register {
+    margin: 10rem 5rem;
+}
+
+.register .formulaire {
+    display: flex;
+    justify-content: space-around;
+}
+
+.register .psw-form {
+    margin-top: 3rem;
+}
+
+.register label {
+    width: 45%;
+}
+
+.register label p {
+    padding: 0 2rem;
+}
+
+.register input {
+    border-radius: 2rem;
+    font-size: 2rem;
+    padding: 1rem;
+    color: #282828;
+    border: none;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.register .submit-button {
+    display: flex;
+    justify-content: center;
+}
+
+.register .redirect {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.register .redirect a {
+    color: #356FC6;
+}
+
+.register .redirect a:hover {
+    text-decoration: underline;
+}
