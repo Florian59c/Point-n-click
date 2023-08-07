@@ -7,3 +7,12 @@
     color: red;
     font-size: x-large;
 }
+
+.delete .return p,
+.delete .return a {
+    color: #356FC6;
+}
+
+.delete a:hover {
+    text-decoration: underline;
+}

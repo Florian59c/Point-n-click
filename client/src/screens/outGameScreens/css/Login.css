@@ -36,15 +36,37 @@
     margin-top: 2rem;
 }
 
-.login .redirect a {
+.login a {
+    text-align: center;
     color: #356FC6;
 }
 
-.login .redirect a:hover {
+.login a:hover {
     text-decoration: underline;
 }
 
 .login .logout p {
     display: flex;
     justify-content: center;
+}
+
+.login .choise {
+    margin: 4rem 0;
+    text-align: center;
+}
+
+.login .to-delete {
+    color: red;
+}
+
+.login .to-delete:hover {
+    text-decoration-color: red;
+}
+
+.login .to-delete p {
+    margin-top: 2rem;
+}
+
+.login .logout .return {
+    margin-top: 2rem;
 }
