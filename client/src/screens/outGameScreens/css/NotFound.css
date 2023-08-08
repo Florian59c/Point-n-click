@@ -1,0 +1,25 @@
+.not-found {
+    margin: 10rem 5rem 0 5rem;
+}
+
+.not-found img {
+    display: block;
+    margin: auto;
+    margin-bottom: 4rem;
+}
+
+.not-found h1 {
+    text-align: center;
+    margin: 0;
+    font-size: 4rem;
+}
+
+.not-found .submit-button {
+    display: flex;
+    justify-content: center;
+    margin: 6rem 4rem 0 4rem;
+}
+
+.not-found .button-normal {
+    width: 60rem;
+}
