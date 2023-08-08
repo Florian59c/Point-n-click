@@ -1,0 +1,72 @@
+.login {
+    margin: 10rem 5rem;
+}
+
+.login .formulaire {
+    display: flex;
+    justify-content: space-around;
+}
+
+.login label {
+    width: 45%;
+}
+
+.login label p {
+    padding: 0 2rem;
+}
+
+.login input {
+    border-radius: 2rem;
+    font-size: 2rem;
+    padding: 1rem;
+    color: #282828;
+    border: none;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.login .submit-button {
+    display: flex;
+    justify-content: center;
+}
+
+.login .redirect {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.login a {
+    text-align: center;
+    color: #356FC6;
+}
+
+.login a:hover {
+    text-decoration: underline;
+}
+
+.login .logout p {
+    display: flex;
+    justify-content: center;
+}
+
+.login .choise {
+    margin: 4rem 0;
+    text-align: center;
+}
+
+.login .to-delete {
+    color: red;
+}
+
+.login .to-delete:hover {
+    text-decoration-color: red;
+}
+
+.login .to-delete p {
+    margin-top: 2rem;
+}
+
+.login .logout .return {
+    margin-top: 2rem;
+}

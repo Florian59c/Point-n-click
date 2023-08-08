@@ -1,0 +1,24 @@
+.epilogue {
+    margin: 10rem 5rem 0 5rem;
+}
+
+.epilogue h1 {
+    text-align: center;
+    margin-bottom: 4rem;
+    font-size: 4rem;
+}
+
+.epilogue p {
+    text-align: center;
+}
+
+.epilogue .history {
+    text-align: left;
+    text-indent: 40px;
+}
+
+.epilogue .submit-button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
