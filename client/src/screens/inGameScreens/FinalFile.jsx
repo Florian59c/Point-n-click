@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './css/FinalFile.css';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useGetProfileQuery, useGetUsersQuery, useUpdateUserBestScoreMutation } from '../../gql/generated/schema';
 
 function FinalFile() {
@@ -18,7 +18,6 @@ function FinalFile() {
   console.log(currentUserBestScore);
 
   const [updateBestScore] = useUpdateUserBestScoreMutation();
-  const navigate = useNavigate();
 
   // recupere le donnée startTime dans le local storege et la stocke dans le state au 1er chargement de la page
   useEffect(() => {
@@ -34,6 +33,8 @@ function FinalFile() {
     } else {
       const endTime = Date.now();
       const newScore = Math.trunc((endTime - startTime) / 1000);
+      // envoie du score dans le localStorage suivante pour l'afficher dans la page suivante
+      localStorage.setItem('newScore', JSON.stringify(newScore));
 
       console.log("startTime : " + startTime);
       console.log("endTime : " + endTime);
@@ -48,8 +49,6 @@ function FinalFile() {
             await updateBestScore({ variables: { data: { userId: currentUserId, newBestScore: newScore } } });
           } catch (err) {
             console.error(err);
-          } finally {
-            navigate("/epilogue");
           }
         }
       }
@@ -58,7 +57,9 @@ function FinalFile() {
 
   return (
     <div className='final_file' onClick={endDate}>
-      <p>message cliquable de fin sous condition</p>
+      <Link to="/epilogue">
+        <p>message cliquable de fin sous condition</p>
+      </Link>
     </div>
   );
 }
