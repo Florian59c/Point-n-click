@@ -1,0 +1,30 @@
+.prologue {
+    margin: 10rem 5rem 0 5rem;
+}
+
+.prologue h1 {
+    text-align: center;
+    margin-bottom: 4rem;
+    font-size: 4rem;
+}
+
+.prologue p {
+    text-align: center;
+}
+
+.prologue .history {
+    text-align: left;
+    text-indent: 40px;
+}
+
+.prologue hr {
+    border: 0.2rem solid white;
+    border-radius: 2rem;
+    width: 50%;
+    margin: 5rem auto;
+}
+
+.prologue .submit-button {
+    display: flex;
+    justify-content: center;
+}
