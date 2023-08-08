@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useGet10BestUsersQuery } from '../../gql/generated/schema';
 import './css/BestPlayers.css';
 
@@ -18,17 +19,27 @@ function BestPlayers() {
   }
 
   return (
-    <div>
-      {typeof data === "undefined" ? (
-        <p>Impossible de recupérer les utilisateurs depuis l'API</p>
-      ) : (
-        bestUsers.map((bestUser) => (
-          <div key={bestUser.id}>
-            <p>{bestUser.pseudo}</p>
-            <p>{convertScore(bestUser.bestScore)}</p>
+    <div className='best-players'>
+      <h1>Liste des 10 meilleurs joueurs :</h1>
+      <div className='players-tab'>
+        {typeof data === "undefined" ? (
+          <div>
+            <p>Impossible de recupérer les utilisateurs depuis l'API</p>
           </div>
-        ))
-      )}
+        ) : (
+          bestUsers.map((bestUser) => (
+            <div className='player' key={bestUser.id}>
+              <p>{bestUser.pseudo}</p>
+              <p>{convertScore(bestUser.bestScore)}</p>
+            </div>
+          ))
+        )}
+      </div>
+      <div className='submit-button'>
+        <Link to="/" >
+          < button className='button-normal'>Recommencer une partie</button>
+        </Link>
+      </div >
     </div>
   );
 }
