@@ -1,5 +1,5 @@
 // La page d'entrée ou on tape le mdp utilisateur
-import { useFindGameCodeQuery } from '../../gql/generated/schema';
+import { useVerifyGameCodeMutation } from '../../gql/generated/schema';
 import './css/StartPage.css';
 import Wallpaper from '../../img/Wallpaper1.png'
 import { useState } from 'react';
@@ -10,17 +10,15 @@ function StartPage() {
   const [psw, setPsw] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
-  const pageCode = useFindGameCodeQuery({ variables: { data: "StartPage" } });
-  const gameCode = pageCode?.data?.findGameCode;
-
-  // console.log("le code de la page est dans la constante gameCode et vaux : " + gameCode);
+  const [VerifyGameCode] = useVerifyGameCodeMutation();
 
   return (
     <div className='start-page' style={{ backgroundImage: `url(${Wallpaper})` }}>
-      <form onSubmit={(e) => {
+      <form onSubmit={async (e) => {
         e.preventDefault();
-        if (psw === gameCode) {
+        const verify = await VerifyGameCode({ variables: { data: { "name": "StartPage", "psw": psw } } });
+        const checkOfCode = verify?.data?.verifyGameCode;
+        if (checkOfCode === true) {
           navigate("/desktop");
         } else {
           setError('Mot de passe incorrect');

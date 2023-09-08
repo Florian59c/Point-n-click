@@ -26,4 +26,13 @@ export class GamesInput {
     code: string
 }
 
+@InputType()
+export class VerifyGameCodeInput {
+    @Field()
+    name: string
+
+    @Field()
+    psw: string
+}
+
 export default Games;
