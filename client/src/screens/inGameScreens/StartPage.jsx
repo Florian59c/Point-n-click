@@ -4,6 +4,8 @@ import './css/StartPage.css';
 import Wallpaper from '../../img/Wallpaper1.png'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Right_Arrow from '../../img/Right_Arrow.png';
+import Dalmatien from '../../img/Dalmatien1.jpg';
 
 function StartPage() {
 
@@ -14,8 +16,11 @@ function StartPage() {
 
   return (
     <div className='start-page' style={{ backgroundImage: `url(${Wallpaper})` }}>
+      <img src={Dalmatien} alt="Dalmatien" />
+      <h1>Frédéric</h1>
       <form onSubmit={async (e) => {
         e.preventDefault();
+        setError('');
         const verify = await VerifyGameCode({ variables: { data: { "name": "StartPage", "psw": psw } } });
         const checkOfCode = verify?.data?.verifyGameCode;
         if (checkOfCode === true) {
@@ -25,9 +30,11 @@ function StartPage() {
         }
       }}>
         <input type="password" id='psw' value={psw} onChange={(e) => setPsw(e.target.value)} />
-        <button type="submit" className='start-page-button'>V</button>
+        <button type="submit" className='start-page-button'>
+          <img src={Right_Arrow} alt="flêche de validation" />
+        </button>
       </form>
-      <p>{error}</p>
+      <p className='error'>{error}</p>
     </div>
   );
 }
