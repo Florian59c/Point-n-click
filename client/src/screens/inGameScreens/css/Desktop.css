@@ -1,0 +1,20 @@
+.desktop {
+    text-align: center;
+    /* pour fixer l'image en haut à gauche */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* Préserve le ratio de l'image et l'adapte à la taille de l'écran*/
+    min-width: 100%;
+    min-height: 100%;
+    background-size: cover;
+}
+
+.desktop .footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
