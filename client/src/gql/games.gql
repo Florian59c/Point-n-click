@@ -6,6 +6,6 @@ query GetGames {
   }
 }
 
-query FindGameCode($data: String!) {
-  findGameCode(data: $data)
+mutation VerifyGameCode($data: VerifyGameCodeInput!) {
+  verifyGameCode(data: $data)
 }

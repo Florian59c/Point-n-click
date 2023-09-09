@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
-import Game, { GamesInput } from '../entity/Game';
+import Game, { GamesInput, VerifyGameCodeInput } from '../entity/Game';
 import { ApolloError } from 'apollo-server';
 import datasource from '../db';
 
@@ -11,14 +11,18 @@ export class GameResolver {
         return getGame;
     };
 
-    @Query(() => String)
-    async findGameCode(@Arg("data") name: string): Promise<string> {
+    @Mutation(() => Boolean)
+    async verifyGameCode(@Arg("data") { name, psw }: VerifyGameCodeInput): Promise<boolean> {
         const findGame = await datasource.getRepository(Game).findOneBy({ name });
         console.log(findGame?.code);
-        if (findGame === null) {
-            throw new ApolloError("Le jeu n'existe pas", "INVALID_CREDS");
+        if (findGame !== null) {
+            if (findGame?.code === psw) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return findGame.code;
+            throw new ApolloError("Le jeu n'existe pas", "INVALID_CREDS");
         }
     };
 

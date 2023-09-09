@@ -7,7 +7,7 @@ async function resetGames(): Promise<void> {
     await datasource.getRepository(Game).save([
         {
             name: "StartPage",
-            code: "azerty123"
+            code: "X!TF37E41#"
         }, {
             name: "MailBox",
             code: "azerty456"
