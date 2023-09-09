@@ -10,6 +10,34 @@
     background-size: cover;
 }
 
+.desktop .body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.desktop .shortcut {
+    /* background-color: black; */
+    flex: 1 1 9%;
+    margin: 5px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.desktop .shortcut img {
+    max-width: 80%;
+    max-height: 80%;
+}
+
+.desktop .shortcut p,
+.desktop .shortcut a {
+    font-size: 1.2rem;
+    color: white;
+}
+
 .desktop .footer {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 30px;
@@ -17,4 +45,16 @@
     bottom: 0;
     right: 0;
     left: 0;
+}
+
+@media screen and (max-width: 1000px) {
+    .desktop .shortcut {
+        flex: 1 1 8.5%;
+    }
+}
+
+@media screen and (max-width: 665px) {
+    .desktop .shortcut {
+        flex: 1 1 8%;
+    }
 }
